@@ -12,5 +12,11 @@ import com.example.appalertme.R
 import com.example.appalertme.databinding.FragmentDashboardBinding
 
 class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 }

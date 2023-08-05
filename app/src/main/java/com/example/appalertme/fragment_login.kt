@@ -8,7 +8,9 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.commit
+import com.example.appalertme.MainActivity
 import com.example.appalertme.R
+import com.example.appalertme.fragment_registrarse
 import com.example.appalertme.pruebas
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -26,7 +28,7 @@ class fragment_login : Fragment(R.layout.fragment_login) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       // auth = FirebaseAuth.getInstance()
+        auth = FirebaseAuth.getInstance()
 
         val botonRegistrarse = view.findViewById<Button>(R.id.btnGoToRegister)
         val botonIniciarSesion = view.findViewById<Button>(R.id.btnLogin)
@@ -36,9 +38,9 @@ class fragment_login : Fragment(R.layout.fragment_login) {
 
         botonRegistrarse.setOnClickListener {
             requireActivity().supportFragmentManager.commit {
-                replace(R.id.contenedorFragmentos, pruebas())
+                replace(R.id.contenedorFragmentos, fragment_registrarse())
                 addToBackStack(null)
-                commit()
+
             }
         }
 
@@ -58,7 +60,6 @@ class fragment_login : Fragment(R.layout.fragment_login) {
         botonIniciarSesion.setOnClickListener {
             val usernameText = username.text.toString()
             val passwordText = password.text.toString()
-
             signInWithEmailAndPassword(usernameText, passwordText)
         }
     }
@@ -68,13 +69,16 @@ class fragment_login : Fragment(R.layout.fragment_login) {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    // Manejar la autenticación exitosa (por ejemplo, navegación, mostrar mensajes, etc.)
+                    val intent = Intent(requireContext(), MainActivity::class.java)
+                    intent.putExtra("clave", email)
+                    startActivity(intent)
                 } else {
-                    // Manejar el error de autenticación
+                    // Handle authentication error
                     Toast.makeText(requireContext(), "Error en el inicio de sesión", Toast.LENGTH_SHORT).show()
                 }
             }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

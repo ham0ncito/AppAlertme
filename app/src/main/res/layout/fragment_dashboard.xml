@@ -22,24 +22,10 @@
         android:textAlignment="center"
         android:textColor="@color/amarillo_electrico"
         android:textSize="40sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+         />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/viewPager"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btnSwipe"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp" />
-
         <Button
             android:id="@+id/btnSwipe"
             android:layout_width="wrap_content"

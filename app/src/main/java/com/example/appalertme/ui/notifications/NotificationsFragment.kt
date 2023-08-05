@@ -11,5 +11,11 @@ import com.example.appalertme.R
 import com.example.appalertme.databinding.FragmentNotificationsBinding
 
 class NotificationsFragment : Fragment(R.layout.fragment_notifications) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 }
