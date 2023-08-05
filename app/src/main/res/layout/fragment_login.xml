@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:textAlignment="center"
+    android:background="@drawable/backgroud_gradiente"
+    tools:context=".fragment_login"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/logo"
+        android:background="@drawable/logo" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Iniciar sesión"
+        android:textColor="@color/rosa_brillante"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:layout_margin="5dp"
+        android:background="@drawable/input"
+        android:hint="Nombre de usuario"
+        android:textAlignment="center"
+        android:textSize="24dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:textAlignment="center"
+        android:textSize="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="73dp"
+        android:hint="Contraseña"
+        android:background="@drawable/input"
+        android:inputType="textPassword"
+        android:layout_margin="5dp"/>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="270dp"
+        android:layout_height="103dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/botonredondo"
+        android:padding="2dp"
+        android:text="Iniciar sesión"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:textSize="22dp"
+        android:layout_height="wrap_content"
+        android:text="¿No tienes una cuenta?"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/btnGoToRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/botonredondo"
+        android:text="Registrarse"
+        android:textAlignment="center"
+        android:textSize="18dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:padding="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnLoginGoogle"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:text="Sign With Google"
+            android:background="@drawable/botonredondo"
+            android:drawableLeft="@drawable/googleg_disabled_color_18"
+            android:layout_margin="5dp" />
+
+        <Button
+            android:id="@+id/btnSignInFacebook"
+            android:layout_width="170dp"
+            android:layout_height="100dp"
+            android:text="Sign In with Facebook"
+            android:drawablePadding="8dp"
+            android:background="@drawable/botonredondo"
+            android:textColor="@android:color/white"
+            android:layout_margin="5dp"
+            android:layout_marginTop="16dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradiente_circular"
+    android:orientation="vertical"
+    tools:context=".ui.dashboard.DashboardFragment">
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="100dp">
+
+</Space>
+    <TextView
+        android:id="@+id/text_dashboard"
+        android:layout_width="334dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:text="TOCA PARA ALERTAR"
+        android:textAlignment="center"
+        android:textColor="@color/amarillo_electrico"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnSwipe"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnSwipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Botón 1"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:padding="16dp" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="305dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:gravity="center_horizontal"
+        android:layout_margin="20dp"
+        android:text="TUS ALERTAS SE ENVIARÁN A TODOS TUS CONTACTO "
+        android:textSize="22dp">
+
+    </TextView>
+</LinearLayout>

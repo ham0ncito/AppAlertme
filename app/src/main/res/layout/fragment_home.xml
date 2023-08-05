@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/grey_gradient"
+    tools:context=".ui.home.HomeFragment">
+<LinearLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <RelativeLayout
+        android:id="@+id/relativeContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/textViewTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:text="Título"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/roundedImageView"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_below="@id/textViewTitulo"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-47dp"
+            android:layout_marginEnd="31dp"
+            android:background="@drawable/round_shape"
+            android:scaleType="centerCrop"
+            android:src="@drawable/user" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/atajos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/relativeContainer"
+        android:orientation="vertical">
+
+        <!-- TextView "Atajos" -->
+        <TextView
+            android:id="@+id/textViewAtajos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atajos"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:padding="16dp" />
+
+        <!-- LinearLayout para los botones en horizontal -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <!-- Primer botón -->
+            <Button
+                android:id="@+id/btnBoton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TODO BIEN"
+                android:background="@drawable/botonredondo"
+                android:padding="16dp" />
+
+            <!-- Espacio entre los botones -->
+            <Space
+                android:layout_width="16dp"
+                android:layout_height="1dp" />
+
+            <!-- Segundo botón -->
+            <Button
+                android:id="@+id/btnBoton2"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/botonredondo"
+                android:padding="16dp"
+                android:text="ALERTA" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <EditText
+        android:layout_margin="10dp"
+        android:id="@+id/editTextBuscar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/atajos"
+        android:hint="Buscar..."
+        android:padding="16dp" />
+    
+    <!-- RecyclerView en el centro -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewContactos"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@id/editTextBuscar"
+        android:layout_above="@id/btnAgregar"
+        android:padding="16dp" />
+
+    <!-- Botón "Agregar" debajo del RecyclerView -->
+    <Button
+        android:id="@+id/btnAgregar"
+        android:layout_width="145dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewContactos"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="@drawable/botonredondo"
+        android:padding="16dp"
+        android:text="Agregar" />
+
+</LinearLayout>
+</ScrollView>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:padding="10dp"
+    android:layout_height="match_parent"
+    android:background="@drawable/backgroud_gradiente"
+    tools:context=".fragment_registrarse">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+        <ImageView
+            android:id="@+id/animacion"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registro"
+            android:textColor="@color/rosa_brillante"
+            android:textSize="32sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="30dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:text="Ingrese en cada campo los datos solicitados"
+            ></TextView>
+        <EditText
+            android:id="@+id/editTextUsername"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Nombre de usuario"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Teléfono"
+            android:inputType="phone"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Nombre"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Apellido"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/editTextBirthDate"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Fecha de nacimiento"
+            android:inputType="datetime"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <AutoCompleteTextView
+            android:id="@+id/editTextGender"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:background="@drawable/input"
+            android:hint="Elije una opción"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="271dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/botonredondo"
+            android:padding="2dp"
+            android:text="Registrarse"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+</ScrollView>
