@@ -34,7 +34,7 @@ class Usuario : AppCompatActivity() {
         apellidoTextView.text = apellido
         fechaTextView.text = fecha
         nombreUsuarioTextView.text = usuario
-titulo.Text="$nombre $apellido"
+titulo.text="$nombre $apellido"
 
 
     }
