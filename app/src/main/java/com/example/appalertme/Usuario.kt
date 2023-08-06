@@ -48,7 +48,19 @@ class Usuario : AppCompatActivity() {
             intent.putExtra("clave", email)
             startActivity(intent)
         }
+val cerrarSesion = findViewById<Button>(R.id.cerrarSesion)
+        cerrarSesion.setOnClickListener {
+            val auth = FirebaseAuth.getInstance()
+            auth.signOut()
 
+            val delayMillis = 5000L
+            Handler(Looper.getMainLooper()).postDelayed({
+                val intent = Intent(this@Usuario, Contenedor::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }, delayMillis)
+        }
         val botonCambiarContra = findViewById<Button>(R.id.cambiarContraseña)
         botonCambiarContra.setOnClickListener {
             mAuth = FirebaseAuth.getInstance()
