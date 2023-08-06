@@ -18,6 +18,7 @@
     <string name="Alertas">Alertas</string>
     <string name="Home">Home</string>
     <string name="facebook_app_id">1130031271288339</string>
+    <string name="googleId">942159275582-ckof9phbn6elrbg2tulvh9v71qkkkb8s.apps.googleusercontent.com</string>
     <string-array name="menu_options">
         <item>Mujer</item>
         <item>Hombre</item>

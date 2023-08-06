@@ -135,9 +135,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:textSize="22dp"
+            android:id="@+id/PreguntasFrecuentes"
             android:layout_height="wrap_content"
             android:text="Preguntas Frecuentes"
             android:layout_gravity="center"
+            android:autoLink="web"
             android:layout_marginTop="30dp"/>
     </LinearLayout>
 
