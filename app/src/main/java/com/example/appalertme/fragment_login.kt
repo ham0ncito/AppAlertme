@@ -94,13 +94,13 @@ recuperar.setOnClickListener {
                 botonIniciarSesion.isEnabled=true
                 Toast.makeText(requireContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
             } else {
-                signInWithEmailAndPassword(usernameText, passwordText)
+                signInWithEmailAndPassword(usernameText, passwordText, botonIniciarSesion)
             }
         }
 
     }
 
-    private fun signInWithEmailAndPassword(email: String, password: String) {
+    private fun signInWithEmailAndPassword(email: String, password: String,boton : Button) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
@@ -113,6 +113,7 @@ recuperar.setOnClickListener {
 
                     startActivity(intent)
                 } else {
+                    boton.isEnabled = true
                     Toast.makeText(requireContext(), "Error en el inicio de sesión", Toast.LENGTH_SHORT).show()
                 }
             }

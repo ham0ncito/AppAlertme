@@ -31,8 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val email = sharedPref.getString("email", "")
         val texto = view.findViewById<TextView>(R.id.textViewTitulo)
         val databaseReference = FirebaseDatabase.getInstance().reference
-        val query = databaseReference.child("users").orderByChild("correo\n").equalTo(email)
-
+        val query = databaseReference.child("users").orderByChild("correo").equalTo(email)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
@@ -43,8 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         val user = userSnapshot.child("nombre de usuario").getValue(String::class.java)
                         val fecha = userSnapshot.child("fecha de nacimiento").getValue(String::class.java)
                         val telefono  = userSnapshot.child("telefono").getValue(String::class.java)
-
-                        texto.text = "Bienvenido $nombre $apellido"
+                        texto.text = "Bienvenido \n$nombre \n$apellido"
                         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                         val editor = sharedPref.edit()
 
@@ -73,9 +71,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         if (telefonoExistente.isNullOrEmpty()) {
                             editor.putString("telefono", telefono)
                         }
-
                         editor.apply()
-
 
                     }
                 } else {
@@ -86,6 +82,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
             override fun onCancelled(error: DatabaseError) {
 
+                Toast.makeText(requireContext(), "Error $error", Toast.LENGTH_SHORT).show()
             }
         })
 
