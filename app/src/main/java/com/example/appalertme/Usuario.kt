@@ -1,14 +1,21 @@
 package com.example.appalertme
 
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
+import com.google.firebase.auth.FirebaseAuth
 
 class Usuario : AppCompatActivity() {
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_usuario)
@@ -34,12 +41,33 @@ class Usuario : AppCompatActivity() {
         apellidoTextView.text = apellido
         fechaTextView.text = fecha
         nombreUsuarioTextView.text = usuario
-titulo.text="$nombre $apellido"
+        titulo.text="$nombre $apellido"
+        val botonCambiarCorreo = findViewById<Button>(R.id.cambiarCorreo)
+        botonCambiarCorreo.setOnClickListener {
+            val intent = Intent(this, Correo::class.java)
+            intent.putExtra("clave", email)
+            startActivity(intent)
+        }
 
+        val botonCambiarContra = findViewById<Button>(R.id.cambiarContraseña)
+        botonCambiarContra.setOnClickListener {
+            mAuth = FirebaseAuth.getInstance()
+            if (email != null) {
+                mAuth.sendPasswordResetEmail(email)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(this, "Correo para cambiar la contraseña enviado a: $email", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this, "Error al enviar el correo de recuperación", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+        }
 
     }
 
     override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
         return super.onCreateView(name, context, attrs)
+
     }
 }

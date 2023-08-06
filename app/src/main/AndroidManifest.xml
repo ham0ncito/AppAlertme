@@ -19,6 +19,9 @@
         android:theme="@style/Theme.AppAlertme"
         tools:targetApi="31">
         <activity
+            android:name=".Correo"
+            android:exported="false" />
+        <activity
             android:name=".eliminarContacto"
             android:exported="false" />
         <activity
