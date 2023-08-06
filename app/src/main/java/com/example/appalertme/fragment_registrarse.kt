@@ -13,6 +13,7 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.Navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -175,6 +176,7 @@ class fragment_registrarse : Fragment() {
                                                         .addOnCompleteListener { userCreationTask ->
                                                             if (userCreationTask.isSuccessful) {
                                                                 Toast.makeText(requireContext(), "$nombreUsuario gracias por registrarte", Toast.LENGTH_SHORT).show()
+                                                                requireActivity().supportFragmentManager.popBackStack()
                                                             } else {
                                                                 Toast.makeText(requireContext(), "Error de registro", Toast.LENGTH_SHORT).show()
                                                             }

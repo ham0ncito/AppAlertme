@@ -22,12 +22,12 @@
 
         <TextView
             android:id="@+id/textViewTitulo"
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Título"
-            android:textSize="30sp"
+            android:textSize="20sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -39,7 +39,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-47dp"
             android:clickable="true"
-            android:background="@drawable/round_shape"
+            android:contentDescription="Imagen"
+   android:background="@drawable/round_shape"
             android:scaleType="centerCrop"
             android:src="@drawable/user" />
 
