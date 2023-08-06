@@ -1,72 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <LinearLayout
         android:layout_width="match_parent"
-    android:orientation="vertical"
+        android:orientation="vertical"
         android:layout_height="match_parent"
-    android:background="@drawable/gradientesblancos"
+        android:background="@drawable/gradientesblancos"
         tools:context=".ui.notifications.NotificationsFragment">
-
-    <TextView
-        android:id="@+id/tituloAlerta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Alertas Activas"
-        android:textStyle="bold"
-        android:textSize="32sp"
-        android:padding="20dp"/>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="12dp"
-        android:background="@drawable/cajitas"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-tools:listitem="@layout/alerta"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <TextView
-            android:id="@+id/alertaTuya"
+            android:id="@+id/tituloAlerta"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tu Alerta"
+            android:text="Alertas Activas"
             android:textStyle="bold"
             android:textSize="32sp"
             android:padding="20dp"/>
-        <TextView
-            android:id="@+id/alertaActivaPersonal"
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No tienes alertas activas"
-            android:textAlignment="center"
-            android:background="@drawable/input"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_margin="20dp"
-            android:padding="20dp"/>
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TODAS LAS ALERTAS DESAPARECERAN
+            android:layout_marginTop="10dp"
+            android:padding="12dp"
+            android:background="@drawable/cajitas"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                tools:listitem="@layout/alerta"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/alertaTuya"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tu Alerta"
+                android:textStyle="bold"
+                android:textSize="32sp"
+                android:padding="20dp"/>
+            <TextView
+                android:id="@+id/alertaActivaPersonal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No tienes alertas activas"
+                android:textAlignment="center"
+                android:background="@drawable/input"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_margin="20dp"
+                android:padding="20dp"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TODAS LAS ALERTAS DESAPARECERAN
 DESPUÉS DE 15 MINUTOS"
-        android:textAlignment="center"
-        android:textStyle="bold"
-        android:textSize="15sp"
-        />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="300dp"></Space>
-</LinearLayout>
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="300dp"></Space>
+    </LinearLayout>
+</ScrollView>
