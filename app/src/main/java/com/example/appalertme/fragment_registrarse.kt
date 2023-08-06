@@ -1,56 +1,159 @@
 package com.example.appalertme
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
+import org.w3c.dom.Text
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-class fragment_registrarse : Fragment(R.layout.fragment_registrarse) {
+class fragment_registrarse : Fragment() {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        val rootView = inflater.inflate(R.layout.fragment_registrarse, container, false)
+        return rootView
+    }
+
+
+
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var email = view.findViewById<EditText>(R.id.editTextEmail)
+        var contrasena = view.findViewById<EditText>(R.id.editTextPassword)
+        var nombreUsuario = view.findViewById<EditText>(R.id.editTextUsername)
+        var telefono = view.findViewById<EditText>(R.id.editTextPhone)
+        var nombre = view.findViewById<EditText>(R.id.editTextFirstName)
+        var apellido = view.findViewById<EditText>(R.id.editTextLastName)
+        var fecha = view.findViewById<EditText>(R.id.editTextBirthDate)
+        var texto = view.findViewById<TextView>(R.id.texto)
+        val registrarse = view.findViewById<Button>(R.id.btnRegister)
 
-        val email = view.findViewById<EditText>(R.id.editTextEmail)
-        val contrasena = view.findViewById<EditText>(R.id.editTextPassword)
-        val editGenero = view.findViewById<AutoCompleteTextView>(R.id.editTextGender)
-        val opciones = listOf("Hombre", "Mujer", "Otro")
-        val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, opciones)
-        editGenero.setAdapter(adapter)
-
-        val nombreUsuario = view.findViewById<EditText>(R.id.editTextUsername)
-        val telefono = view.findViewById<EditText>(R.id.editTextPhone)
-        val nombre = view.findViewById<EditText>(R.id.editTextFirstName)
-        val apellido = view.findViewById<EditText>(R.id.editTextLastName)
-val registrarse = view.findViewById<Button>(R.id.btnRegister)
-        editGenero.setOnItemClickListener { _, _, position, _ ->
-            val opcionSeleccionada = opciones[position]
-            // If you intend to use opcionSeleccionada, make sure you use it in your code
-        }
 
         registrarse.setOnClickListener {
-            signUp(email.text.toString(), contrasena.text.toString())
+            registrarse.isEnabled = false
+            texto.text = email.editableText.toString() + " " + contrasena.editableText.toString() + " " + nombre.editableText.toString() + " " + telefono.editableText.toString() + " " + apellido.editableText.toString() + " " + fecha.editableText.toString() + " " + nombreUsuario.editableText.toString()
+            //validateAndSignUp(email.editableText.toString(),contrasena.editableText.toString(),nombre.editableText.toString(),telefono.editableText.toString(), apellido.editableText.toString(), fecha.editableText.toString(), nombreUsuario.editableText.toString())
         }
     }
+    private fun isValidName(name: String): Boolean {
+        val pattern = Regex(".*(.)\\1\\1.*")
+        return !pattern.matches(name)
 
-    // ... Rest of your code ...
+    }
 
-    private fun signUp(email: String, password: String) {
-        FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
+    private fun isStrongPassword(password: String): Boolean {
+        val pattern = Regex("^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+        return pattern.matches(password)
+    }
 
+    private fun areFieldsNotEmpty(vararg fields: String): Boolean {
+        return fields.all { it.isNotEmpty() }
+    }
+    private fun isValidPhoneNumber(phoneNumber: String): Boolean {
+        val pattern = Regex("^[2-9]\\d{7}$")
+        return pattern.matches(phoneNumber)
+    }
+    private fun isValidEmail(email: String): Boolean {
+        val pattern = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
+        return pattern.matches(email)
+    }
+    private fun validateAndSignUp(email: String, password: String, nombre: String, telefono: String, apellido: String, fecha: String, nombreUsuario: String) {
+        if (!areFieldsNotEmpty(email, password, nombre, apellido, telefono, fecha, nombreUsuario)) {
+            Toast.makeText(requireContext(), "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isValidEmail(email)) {
+            Toast.makeText(requireContext(), "Por favor ingresa un correo electrónico válido.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!isValidName(nombre) || !isValidName(apellido)) {
+            Toast.makeText(requireContext(), "Nombre y apellido no deben tener caracteres repetidos de manera consecutiva.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isValidPhoneNumber(telefono)) {
+            Toast.makeText(requireContext(), "El número de teléfono debe tener 8 dígitos y empezar con 2, 3, 8 o 9.", Toast.LENGTH_SHORT).show()
+            return
+        }
+        if (!isStrongPassword(password)) {
+            Toast.makeText(requireContext(), "La contraseña debe ser compleja y tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula, un número y un carácter especial.", Toast.LENGTH_LONG).show()
+            return
+        }
+
+
+        //signUp(email,password,nombre,telefono,apellido, fecha, nombreUsuario, genero)
+    }
+
+    private fun signUp(email: String, password: String, nombre: String, telefono: String, apellido: String, fecha: String, nombreUsuario: String) {
+        val database = FirebaseDatabase.getInstance()
+        val usersRef = database.getReference("users")
+        val usuarioRef = usersRef.orderByChild("nombreUsuario").equalTo(nombreUsuario)
+        usuarioRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    Toast.makeText(requireContext(), "Nombre de Usuario $nombreUsuario ya existe. Prueba Otro", Toast.LENGTH_SHORT).show()
                 } else {
-
+                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val user = FirebaseAuth.getInstance().currentUser
+                                user?.let {
+                                    val userId = usersRef.push().key
+                                    val userMap = hashMapOf(
+                                        "nombre" to nombre,
+                                        "apellido" to apellido,
+                                        "telefono" to telefono,
+                                        "nombre de usuario" to nombreUsuario,
+                                        "correo" to email,
+                                        "fecha de nacimiento" to fecha
+                                    )
+                                    usersRef.child(userId.toString()).setValue(userMap)
+                                        .addOnCompleteListener { userCreationTask ->
+                                            if (userCreationTask.isSuccessful) {
+                                                Toast.makeText(requireContext(), "$nombreUsuario gracias por registrarte", Toast.LENGTH_SHORT).show()
+                                            } else {
+                                                Toast.makeText(requireContext(), "Error de registro", Toast.LENGTH_SHORT).show()
+                                            }
+                                        }
+                                }
+                            } else {
+                                // Manejar error de autenticación aquí
+                            }
+                        }
                 }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar error de base de datos aquí
+            }
+        })
     }
+
+
 }

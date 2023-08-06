@@ -6,9 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-android:layout_gravity="center_vertical"
-    android:background="@drawable/backgroud_gradiente"
-    tools:context=".ui.fragment_recuperar">
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/backgroud_gradiente">
 
 <Space
     android:layout_width="match_parent"

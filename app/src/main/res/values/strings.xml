@@ -18,5 +18,11 @@
     <string name="Alertas">Alertas</string>
     <string name="Home">Home</string>
     <string name="facebook_app_id">1130031271288339</string>
+    <string-array name="menu_options">
+        <item>Mujer</item>
+        <item>Hombre</item>
+        <item>Otro</item>
+    </string-array>
+
 
 </resources>

@@ -5,9 +5,9 @@
 
         <item name="colorPrimary">@color/rosa_brillante</item>
         <item name="colorPrimaryVariant">#0080FF</item>
-        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorOnPrimary">#000000</item>
 
-        <item name="colorSecondary">#C0C0C0</item>
+        <item name="colorSecondary">#2C2222</item>
         <item name="colorSecondaryVariant">#000000</item>
         <item name="colorOnSecondary">#000000</item>
 
