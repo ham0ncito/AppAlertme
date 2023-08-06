@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/gradientegris"
+    android:background="@drawable/gradientesblancos"
     tools:context=".ui.home.HomeFragment">
 <LinearLayout
 
@@ -16,7 +16,7 @@
         android:id="@+id/relativeContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/gradienterosa"
+        android:background="@drawable/gradienteanaranjao"
         android:padding="60dp"
         android:layout_marginBottom="12dp">
 
@@ -28,7 +28,7 @@
             android:layout_marginBottom="8dp"
             android:text="Título"
             android:textSize="32sp"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textStyle="bold" />
 
         <ImageView
@@ -59,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Atajos"
-            android:textSize="24sp"
-            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textColor="@color/azul_electrico"
             android:textStyle="bold"
             android:layout_gravity="center"
             android:padding="16dp" />
@@ -117,6 +117,7 @@
         android:id="@+id/recyclerViewContactos"
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        tools:listitem="@layout/contacinto"
         android:background="@drawable/cajitas"
         android:layout_below="@id/editTextBuscar"
         android:layout_above="@id/btnAgregar"
@@ -134,10 +135,48 @@
         android:layout_gravity="center"
         android:background="@drawable/botonredondo"
         android:padding="16dp"
-        android:text="Agregar" />
-    <Space
+        android:text="Agregar Contacto" />
+    <Button
+        android:layout_marginTop="12dp"
+        android:id="@+id/btnEliminarContacto"
         android:layout_width="match_parent"
-        android:layout_height="100dp"></Space>
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recyclerViewContactos"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:background="@drawable/botonredondo"
+        android:padding="16dp"
+        android:text="Eliminar Contacto" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cajitas">
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:padding="12dp"
+        android:background="@drawable/cajitas"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Solicitudes"
+            android:textSize="34sp"
+ android:textAlignment="center"
+            android:textColor="@color/azul_electrico"></TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            tools:listitem="@layout/contactoplantilla"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 </LinearLayout>
 </ScrollView>

@@ -12,7 +12,7 @@
                 android:type="radial"
                 android:centerX="50%"
                 android:centerY="50%"
-                android:startColor="#E91E63"
+                android:startColor="#E48F12"
                 android:endColor="#FF5722"
                 android:gradientRadius="120%" />
             <corners android:radius="20dp" />

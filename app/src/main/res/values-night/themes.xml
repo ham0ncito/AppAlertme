@@ -3,11 +3,10 @@
     <!-- Base application theme. -->
     <style name="Theme.AppAlertme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
-        <item name="colorPrimary">@color/rosa_brillante</item>
+        <item name="colorPrimary">@color/anaranjado</item>
         <item name="colorPrimaryVariant">#0080FF</item>
         <item name="colorOnPrimary">#000000</item>
-
-        <item name="colorSecondary">#2C2222</item>
+        <item name="colorSecondary">@color/amarillo_electrico</item>
         <item name="colorSecondaryVariant">#000000</item>
         <item name="colorOnSecondary">#000000</item>
 

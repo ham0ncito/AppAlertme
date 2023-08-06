@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <style name="Theme.AppAlertme" parent="Theme.MaterialComponents.Light.NoActionBar">
-    <item name="colorPrimary">#FF1D73</item>
+    <item name="colorPrimary">@color/anaranjado</item>
     <item name="colorPrimaryVariant">#0080FF</item>
     <item name="colorOnPrimary">#FFFFFF</item>
-    <item name="colorSecondary">#C0C0C0</item>
+    <item name="colorSecondary">@color/amarillo_electrico</item>
     <item name="colorSecondaryVariant">#000000</item>
     <item name="colorOnSecondary">#000000</item>
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>

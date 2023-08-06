@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradiente_circular"
+    android:background="@drawable/gradientesblancos"
     android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 <Space
@@ -12,7 +12,13 @@
     android:layout_height="100dp">
 
 </Space>
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cajitas"
+        android:padding="12dp"
+        android:orientation="vertical">
+        <TextView
         android:id="@+id/text_dashboard"
         android:layout_width="334dp"
         android:layout_height="wrap_content"
@@ -22,22 +28,23 @@
         android:textAlignment="center"
         android:textColor="@color/negro"
         android:textSize="40sp"
-         />
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-        <include layout="@layout/linear_button" />
+        />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+            <include layout="@layout/linear_button" />
 
-    </RelativeLayout>
+        </RelativeLayout>
 
-    <TextView
-        android:layout_width="305dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:gravity="center_horizontal"
-        android:layout_margin="20dp"
-        android:text="TUS ALERTAS SE ENVIARÁN A TODOS TUS CONTACTO "
-        android:textSize="22dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:text="TUS ALERTAS SE ENVIARÁN A TODOS TUS CONTACTO "
+            android:textSize="22dp">
 
-    </TextView>
+        </TextView></LinearLayout>
+
 </LinearLayout>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- amarillo_pastel_gradient.xml -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#F6BA06"
+        android:endColor="#EAB414"
+        android:type="linear"
+        android:angle="90"/>
+
+
+    <corners android:radius="10dp" />
+
+</shape>

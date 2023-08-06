@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:layout_gravity="center_vertical"
-    android:background="@drawable/gradientegris">
+    android:background="@drawable/gradientesblancos">
 
 <Space
     android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:text="Recuperar Contraseña"
             android:textSize="30sp"
-            android:textColor="@color/rosa_brillante"
+            android:textColor="@color/anaranjado"
             android:layout_margin="10dp"
             android:layout_gravity="center"
             />
@@ -35,7 +35,7 @@
             android:textSize="25sp"
             android:text="En unos momentos recibirá el correo para recuperar su contraseña"
             android:layout_margin="22dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:layout_gravity="center"
             />
 
