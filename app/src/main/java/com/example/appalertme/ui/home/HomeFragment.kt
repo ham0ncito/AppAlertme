@@ -3,19 +3,15 @@ package com.example.appalertme.ui.home
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import com.example.appalertme.AddContactoActivity
 import com.example.appalertme.R
 import com.example.appalertme.Usuario
-import com.example.appalertme.addContacto
-import com.example.appalertme.databinding.FragmentHomeBinding
 import com.example.appalertme.eliminarContacto
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -23,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
@@ -90,12 +87,15 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val aggContacto = view?.findViewById<Button>(R.id.btnAgregarContacto)
         val eliContacto = view?.findViewById<Button>(R.id.btnEliminarContacto)
+
         if (aggContacto != null) {
             aggContacto.setOnClickListener{
-                val intent = Intent(requireContext(), addContacto::class.java)
+                val intent = Intent(requireContext(), AddContactoActivity::class.java)
+                intent.putExtra("email", email)
                 startActivity(intent)
             }
         }
+
         if (eliContacto != null) {
             eliContacto.setOnClickListener{
                 val intent = Intent(requireContext(), eliminarContacto::class.java)

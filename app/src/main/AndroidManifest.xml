@@ -25,7 +25,7 @@
             android:name=".eliminarContacto"
             android:exported="false" />
         <activity
-            android:name=".addContacto"
+            android:name=".AddContactoActivity"
             android:exported="false" />
         <activity
             android:name=".Usuario"
