@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+android:layout_gravity="center_vertical"
+    android:background="@drawable/backgroud_gradiente"
+    tools:context=".ui.fragment_recuperar">
+
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="200dp">
+
+</Space>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Recuperar Contraseña"
+        android:textSize="30sp"
+        android:textColor="@color/rosa_brillante"
+        android:layout_margin="10dp"
+        android:layout_gravity="center"
+      />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:text="En unos momentos recibirá el correo para recuperar su contraseña"
+        android:layout_margin="20dp"
+        android:textColor="@color/black"
+        android:layout_gravity="center"
+        />
+
+    <EditText
+        android:id="@+id/editTextCorreo"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textAlignment="center"
+        android:hint="Correo Electrónico"
+        android:background="@drawable/input"
+        android:inputType="textEmailAddress" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enviar Correo"
+        android:layout_gravity="center"
+        android:id="@+id/btnEnviarCorreoRecuperar"
+        android:layout_margin="16dp"
+        android:background="@drawable/botonredondo"
+        android:onClick="enviarCorreo" />
+</LinearLayout>

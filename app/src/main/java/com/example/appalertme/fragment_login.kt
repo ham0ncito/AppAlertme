@@ -35,8 +35,9 @@ class fragment_login : Fragment(R.layout.fragment_login) {
         val botonGoogle = view.findViewById<Button>(R.id.btnLoginGoogle)
         val username = view.findViewById<EditText>(R.id.editTextUsername)
         val password = view.findViewById<EditText>(R.id.editTextPassword)
-
+        val recuperar = view.findViewById<Button>(R.id.btnRecuperar)
         botonRegistrarse.setOnClickListener {
+            botonRegistrarse.isEnabled= false
             requireActivity().supportFragmentManager.commit {
                 replace(R.id.contenedorFragmentos, fragment_registrarse())
                 addToBackStack(null)
@@ -56,12 +57,25 @@ class fragment_login : Fragment(R.layout.fragment_login) {
                 startActivityForResult(signInIntent, RC_SIGN_IN)
             }
         }
+recuperar.setOnClickListener {
+    requireActivity().supportFragmentManager.commit {
+        replace(R.id.contenedorFragmentos, fragment_recuperar())
+        addToBackStack(null)
 
+    }
+}
         botonIniciarSesion.setOnClickListener {
+            botonIniciarSesion.isEnabled=false
             val usernameText = username.text.toString()
             val passwordText = password.text.toString()
-            signInWithEmailAndPassword(usernameText, passwordText)
+            if (usernameText.isEmpty() || passwordText.isEmpty()) {
+                botonIniciarSesion.isEnabled=true
+                Toast.makeText(requireContext(), "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
+            } else {
+                signInWithEmailAndPassword(usernameText, passwordText)
+            }
         }
+
     }
 
     private fun signInWithEmailAndPassword(email: String, password: String) {
@@ -73,7 +87,6 @@ class fragment_login : Fragment(R.layout.fragment_login) {
                     intent.putExtra("clave", email)
                     startActivity(intent)
                 } else {
-                    // Handle authentication error
                     Toast.makeText(requireContext(), "Error en el inicio de sesión", Toast.LENGTH_SHORT).show()
                 }
             }
