@@ -45,7 +45,8 @@ class fragment_registrarse : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         var email = view.findViewById<EditText>(R.id.editTextEmail)
-        var contrasena = view.findViewById<EditText>(R.id.editTextPassword)
+        var contrasena = view.findViewById<EditText>(R.id.editPassword)
+        var vercontrasena = view.findViewById<EditText>(R.id.editPassword2)
         var nombreUsuario = view.findViewById<EditText>(R.id.editTextUsername)
         var telefono = view.findViewById<EditText>(R.id.editTextPhone)
         var nombre = view.findViewById<EditText>(R.id.editTextFirstName)
@@ -54,11 +55,16 @@ class fragment_registrarse : Fragment() {
         var texto = view.findViewById<TextView>(R.id.texto)
         val registrarse = view.findViewById<Button>(R.id.btnRegister)
 
-
         registrarse.setOnClickListener {
-            registrarse.isEnabled = false
-            texto.text = email.editableText.toString() + " " + contrasena.editableText.toString() + " " + nombre.editableText.toString() + " " + telefono.editableText.toString() + " " + apellido.editableText.toString() + " " + fecha.editableText.toString() + " " + nombreUsuario.editableText.toString()
-            //validateAndSignUp(email.editableText.toString(),contrasena.editableText.toString(),nombre.editableText.toString(),telefono.editableText.toString(), apellido.editableText.toString(), fecha.editableText.toString(), nombreUsuario.editableText.toString())
+            val emailText = email?.editableText?.toString() ?: ""
+            val contrasenaText = contrasena?.editableText?.toString() ?: ""
+            val nombreUsuarioText = nombreUsuario?.editableText?.toString() ?: ""
+            val telefonoText = telefono?.editableText?.toString() ?: ""
+            val nombreText = nombre?.editableText?.toString() ?: ""
+            val apellidoText = apellido?.editableText?.toString() ?: ""
+            val fechaText = fecha?.editableText?.toString() ?: ""
+            val vercontrasenaText = vercontrasena?.editableText?.toString() ?: ""
+            validateAndSignUp(emailText, contrasenaText,vercontrasenaText, nombreText, telefonoText, apellidoText, fechaText, nombreUsuarioText)
         }
     }
     private fun isValidName(name: String): Boolean {
@@ -83,8 +89,18 @@ class fragment_registrarse : Fragment() {
         val pattern = Regex("[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+")
         return pattern.matches(email)
     }
-    private fun validateAndSignUp(email: String, password: String, nombre: String, telefono: String, apellido: String, fecha: String, nombreUsuario: String) {
-        if (!areFieldsNotEmpty(email, password, nombre, apellido, telefono, fecha, nombreUsuario)) {
+    private fun validateAndSignUp(
+        email: String,
+        password: String,
+        confirmPassword: String,
+        nombre: String,
+        telefono: String,
+        apellido: String,
+        fecha: String,
+        nombreUsuario: String
+    ) {
+        if (!areFieldsNotEmpty(email,password, confirmPassword,nombre,telefono,apellido,fecha,nombreUsuario
+            )) {
             Toast.makeText(requireContext(), "Por favor completa todos los campos.", Toast.LENGTH_SHORT).show()
             return
         }
@@ -94,21 +110,37 @@ class fragment_registrarse : Fragment() {
         }
 
         if (!isValidName(nombre) || !isValidName(apellido)) {
-            Toast.makeText(requireContext(), "Nombre y apellido no deben tener caracteres repetidos de manera consecutiva.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "Nombre y apellido no deben tener caracteres repetidos de manera consecutiva.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         if (!isValidPhoneNumber(telefono)) {
-            Toast.makeText(requireContext(), "El número de teléfono debe tener 8 dígitos y empezar con 2, 3, 8 o 9.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                requireContext(),
+                "El número de teléfono debe tener 8 dígitos y empezar con 2, 3, 8 o 9.",
+                Toast.LENGTH_SHORT
+            ).show()
             return
         }
         if (!isStrongPassword(password)) {
-            Toast.makeText(requireContext(), "La contraseña debe ser compleja y tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula, un número y un carácter especial.", Toast.LENGTH_LONG).show()
+            Toast.makeText(
+                requireContext(),
+                "La contraseña debe tener al menos 8 caracteres, incluyendo al menos una mayúscula, una minúscula, un número y un caracter especial",
+                Toast.LENGTH_LONG
+            ).show()
+            return
+        }
+        if (password != confirmPassword) {
+            Toast.makeText(requireContext(), "Las contraseñas no coinciden.", Toast.LENGTH_SHORT).show()
             return
         }
 
-
-        //signUp(email,password,nombre,telefono,apellido, fecha, nombreUsuario, genero)
+         signUp(email, password, nombre, telefono, apellido, fecha, nombreUsuario)
     }
+
 
     private fun signUp(email: String, password: String, nombre: String, telefono: String, apellido: String, fecha: String, nombreUsuario: String) {
         val database = FirebaseDatabase.getInstance()

@@ -51,6 +51,30 @@
             android:hint="Nombre de usuario"
             android:textAlignment="center"
             android:textSize="24sp" />
+        <EditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@drawable/input"
+            android:hint="Contraseña"
+            android:textAlignment="center"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/editPassword2"
+            android:layout_width="match_parent"
+            android:layout_height="73dp"
+            android:layout_margin="5dp"
+            android:inputType="textPassword"
+            android:textColor="@color/black"
+            android:textColorHint="@color/black"
+            android:background="@drawable/input"
+            android:hint="Verifique su contraseña"
+            android:textAlignment="center"
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/editTextPhone"
