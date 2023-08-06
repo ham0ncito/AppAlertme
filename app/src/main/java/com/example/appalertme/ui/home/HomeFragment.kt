@@ -23,16 +23,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")
-        val texto = view.findViewById<TextView>(R.id.textViewTitulo)
+        val texto = view?.findViewById<TextView>(R.id.textViewTitulo)
+
         val databaseReference = FirebaseDatabase.getInstance().reference
         val query = databaseReference.child("users").orderByChild("correo").equalTo(email)
         query.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -42,10 +38,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                         val nombre = userSnapshot.child("nombre").getValue(String::class.java)
                         val correo = userSnapshot.child("correo").getValue(String::class.java)
                         val apellido = userSnapshot.child("apellido").getValue(String::class.java)
-                        val user = userSnapshot.child("nombre de usuario").getValue(String::class.java)
-                        val fecha = userSnapshot.child("fecha de nacimiento").getValue(String::class.java)
+                        val user = userSnapshot.child("nombreUsuario").getValue(String::class.java)
+                        val fecha = userSnapshot.child("fechaNacimiento").getValue(String::class.java)
                         val telefono  = userSnapshot.child("telefono").getValue(String::class.java)
-                        texto.text = "Bienvenido \n$nombre \n$apellido"
+                        if (texto != null) {
+                            texto.text = "Bienvenido \n$nombre \n$apellido"
+                        }
                         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
                         val editor = sharedPref.edit()
 
@@ -66,7 +64,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                             editor.putString("apellido", apellido)
                         }
                         if (usuarioExistente.isNullOrEmpty()) {
-                            editor.putString("usuario", usuarioExistente)
+                            editor.putString("usuario", user)
                         }
                         if (fechaExistente.isNullOrEmpty()) {
                             editor.putString("fecha", fecha)
@@ -90,19 +88,28 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
 
 
- val aggContacto = view.findViewById<Button>(R.id.btnAgregarContacto)
-        val eliContacto = view.findViewById<Button>(R.id.btnEliminarContacto)
-        aggContacto.setOnClickListener{
-            val intent = Intent(requireContext(), addContacto::class.java)
-            startActivity(intent)
+        val aggContacto = view?.findViewById<Button>(R.id.btnAgregarContacto)
+        val eliContacto = view?.findViewById<Button>(R.id.btnEliminarContacto)
+        if (aggContacto != null) {
+            aggContacto.setOnClickListener{
+                val intent = Intent(requireContext(), addContacto::class.java)
+                startActivity(intent)
+            }
         }
-        eliContacto.setOnClickListener{
-            val intent = Intent(requireContext(), eliminarContacto::class.java)
-            startActivity(intent)
+        if (eliContacto != null) {
+            eliContacto.setOnClickListener{
+                val intent = Intent(requireContext(), eliminarContacto::class.java)
+                startActivity(intent)
+            }
         }
-        val roundedImageView = view.findViewById<ImageView>(R.id.roundedImageView)
-        roundedImageView.setOnClickListener {
-            val intent = Intent(requireContext(), Usuario::class.java)
-            startActivity(intent)
-    }}
+        val roundedImageView = view?.findViewById<ImageView>(R.id.roundedImageView)
+        if (roundedImageView != null) {
+            roundedImageView.setOnClickListener {
+                val intent = Intent(requireContext(), Usuario::class.java)
+                startActivity(intent)
+            }
+        }
+
+    }
 }
+
