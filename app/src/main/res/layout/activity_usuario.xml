@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView  xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Usuario">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:background="@drawable/gradientesblancos"
+        android:layout_height="match_parent"
+       >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/user"
+                android:background="@drawable/round_shape"
+                android:contentDescription="Image" />
+
+            <TextView
+                android:id="@+id/titleTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Your Title"
+                android:textSize="40sp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/datosPersonales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Datos Personales"
+            android:layout_marginTop="20dp"
+            android:padding="10dp"
+            android:textColor="@color/anaranjado"
+            android:textSize="30sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp" />
+
+        <TextView
+            android:id="@+id/activityDatosEmail"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:layout_margin="10dp"
+            android:text="Email" />
+
+        <TextView
+            android:id="@+id/activityDatosNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:text="Nombre" />
+
+        <TextView
+            android:id="@+id/activityDatosTelefono"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:text="Teléfono" />
+
+        <TextView
+            android:id="@+id/activityDatosApellido"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:text="Apellido" />
+
+        <TextView
+            android:id="@+id/activityDatosFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:textAlignment="center"
+            android:layout_margin="10dp"
+            android:text="Fecha de nacimiento" />
+
+        <TextView
+            android:id="@+id/activityDatosNombreUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/datos"
+            android:padding="20dp"
+            android:layout_margin="10dp"
+            android:textAlignment="center"
+            android:text="Nombre de Usuario" />
+        <TextView
+            android:id="@+id/config"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Configuracion"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/anaranjado"
+            android:textSize="30sp"
+            android:padding="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="16dp" />
+        <Button
+            android:id="@+id/cambiarCorreo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambiar mi correo"
+            android:layout_margin="10dp"
+            android:background="@drawable/input"
+            android:padding="16dp" />
+        <Button
+            android:id="@+id/cambiarContraseña"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cambiar mi contraseña"
+            android:layout_margin="10dp"
+            android:background="@drawable/input"
+            android:padding="16dp" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="200dp"></Space>
+    </LinearLayout>
+</ScrollView>

@@ -38,6 +38,7 @@
             android:layout_below="@id/textViewTitulo"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="-47dp"
+            android:clickable="true"
             android:background="@drawable/round_shape"
             android:scaleType="centerCrop"
             android:src="@drawable/user" />
@@ -148,16 +149,10 @@
         android:background="@drawable/botonredondo"
         android:padding="16dp"
         android:text="Eliminar Contacto" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/cajitas">
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:padding="12dp"
         android:background="@drawable/cajitas"
@@ -172,11 +167,14 @@
             android:textColor="@color/azul_electrico"></TextView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/recyclerViewSolicitus"
             android:layout_width="match_parent"
             tools:listitem="@layout/contactoplantilla"
             android:layout_height="wrap_content" />
 
     </LinearLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="300dp"></Space>
 </LinearLayout>
 </ScrollView>

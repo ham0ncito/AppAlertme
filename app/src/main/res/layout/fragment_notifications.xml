@@ -66,5 +66,7 @@ DESPUÉS DE 15 MINUTOS"
         android:textStyle="bold"
         android:textSize="15sp"
         />
-
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="300dp"></Space>
 </LinearLayout>
