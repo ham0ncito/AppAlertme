@@ -1,5 +1,6 @@
 package com.example.appalertme
 
+import android.content.Context
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val email = sharedPref.getString("email", "")
 
         val navView: BottomNavigationView = binding.navView
 

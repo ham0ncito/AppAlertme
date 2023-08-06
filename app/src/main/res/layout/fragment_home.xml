@@ -22,12 +22,12 @@
 
         <TextView
             android:id="@+id/textViewTitulo"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="Título"
-            android:textSize="32sp"
+            android:textSize="30sp"
             android:textColor="@color/white"
             android:textStyle="bold" />
 

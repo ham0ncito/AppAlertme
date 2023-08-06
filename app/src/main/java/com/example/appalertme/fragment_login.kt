@@ -1,3 +1,4 @@
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -105,7 +106,11 @@ recuperar.setOnClickListener {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     val intent = Intent(requireContext(), MainActivity::class.java)
-                    intent.putExtra("clave", email)
+                    val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                    val editor = sharedPref.edit()
+                    editor.putString("email", email)
+                    editor.apply()
+
                     startActivity(intent)
                 } else {
                     Toast.makeText(requireContext(), "Error en el inicio de sesión", Toast.LENGTH_SHORT).show()

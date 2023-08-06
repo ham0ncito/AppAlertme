@@ -137,6 +137,17 @@
             android:layout_margin="10dp"
             android:background="@drawable/input"
             android:padding="16dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="100dp"></Space>
+        <Button
+            android:id="@+id/cerrarSesion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cerrar Sesion"
+            android:layout_margin="40dp"
+            android:background="@drawable/botonredondo"
+            android:padding="16dp" />
 
         <Space
             android:layout_width="match_parent"

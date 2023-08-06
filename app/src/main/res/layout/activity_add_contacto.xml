@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradientesblancos"
+    >
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cajitas"
+    android:layout_marginTop="80dp"
+    android:padding="20dp"
+android:orientation="vertical">
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar Contacto"
+        android:padding="20dp"
+        android:textSize="30dp"
+        android:textColor="@color/anaranjado"
+        android:textAlignment="center">
+    </TextView>
+    <EditText
+        android:id="@+id/contactoEditTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Nombre de usuario"
+        android:background="@drawable/input"
+        android:padding="20dp"
+        android:layout_margin="10dp" />
+
+    <EditText
+        android:id="@+id/contactoEditTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Nombre"
+        android:background="@drawable/input"
+        android:padding="20dp"
+        android:layout_margin="10dp" />
+
+    <EditText
+        android:id="@+id/contactoEditTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Teléfono"
+        android:background="@drawable/input"
+        android:padding="20dp"
+        android:layout_margin="10dp" />
+
+    <EditText
+        android:id="@+id/contactoEditTextEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="Correo electrónico"
+        android:background="@drawable/input"
+        android:padding="20dp"
+        android:layout_margin="10dp" />
+    <Button
+        android:id="@+id/btnSendRequest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enviar solicitud"
+        android:textAlignment="center"
+        android:background="@drawable/botonredondo"
+        android:textSize="18dp"
+        android:padding="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp" />
+</LinearLayout>
+</LinearLayout>

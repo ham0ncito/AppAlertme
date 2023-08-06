@@ -1,5 +1,6 @@
 package com.example.appalertme.ui.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -21,6 +22,10 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val email = sharedPref.getString("email", "")
+        val texto = view.findViewById<TextView>(R.id.textViewTitulo)
+        texto.text = "Bienvenido $email"
         val roundedImageView = view.findViewById<ImageView>(R.id.roundedImageView)
         roundedImageView.setOnClickListener {
             val intent = Intent(requireContext(), Usuario::class.java)

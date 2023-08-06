@@ -145,46 +145,60 @@ class fragment_registrarse : Fragment() {
     private fun signUp(email: String, password: String, nombre: String, telefono: String, apellido: String, fecha: String, nombreUsuario: String) {
         val database = FirebaseDatabase.getInstance()
         val usersRef = database.getReference("users")
-        val usuarioRef = usersRef.orderByChild("nombreUsuario").equalTo(nombreUsuario)
-        usuarioRef.addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                if (snapshot.exists()) {
-                    Toast.makeText(requireContext(), "Nombre de Usuario $nombreUsuario ya existe. Prueba Otro", Toast.LENGTH_SHORT).show()
-                } else {
-                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener { task ->
-                            if (task.isSuccessful) {
-                                val user = FirebaseAuth.getInstance().currentUser
-                                user?.let {
-                                    val userId = usersRef.push().key
-                                    val userMap = hashMapOf(
-                                        "nombre" to nombre,
-                                        "apellido" to apellido,
-                                        "telefono" to telefono,
-                                        "nombre de usuario" to nombreUsuario,
-                                        "correo" to email,
-                                        "fecha de nacimiento" to fecha
-                                    )
-                                    usersRef.child(userId.toString()).setValue(userMap)
-                                        .addOnCompleteListener { userCreationTask ->
-                                            if (userCreationTask.isSuccessful) {
-                                                Toast.makeText(requireContext(), "$nombreUsuario gracias por registrarte", Toast.LENGTH_SHORT).show()
+        FirebaseAuth.getInstance().fetchSignInMethodsForEmail(email)
+            .addOnCompleteListener { emailTask ->
+                if (emailTask.isSuccessful) {
+                    val signInMethods = emailTask.result?.signInMethods ?: emptyList()
+                    if (signInMethods.isNotEmpty()) {
+                        Toast.makeText(requireContext(), "Correo electrónico $email ya está en uso", Toast.LENGTH_SHORT).show()
+                    } else {
+                        val usuarioRef = usersRef.orderByChild("nombreUsuario").equalTo(nombreUsuario)
+                        usuarioRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                if (snapshot.exists()) {
+                                    Toast.makeText(requireContext(), "Nombre de Usuario $nombreUsuario ya existe. Prueba Otro", Toast.LENGTH_SHORT).show()
+                                } else {
+                                    FirebaseAuth.getInstance().createUserWithEmailAndPassword(email, password)
+                                        .addOnCompleteListener { task ->
+                                            if (task.isSuccessful) {
+                                                val userId = task.result?.user?.uid
+                                                userId?.let {
+                                                    val userMap = hashMapOf(
+                                                        "nombre" to nombre,
+                                                        "apellido" to apellido,
+                                                        "telefono" to telefono,
+                                                        "nombreUsuario" to nombreUsuario,
+                                                        "correo" to email,
+                                                        "fechaNacimiento" to fecha
+                                                    )
+                                                    usersRef.child(userId).setValue(userMap)
+                                                        .addOnCompleteListener { userCreationTask ->
+                                                            if (userCreationTask.isSuccessful) {
+                                                                Toast.makeText(requireContext(), "$nombreUsuario gracias por registrarte", Toast.LENGTH_SHORT).show()
+                                                            } else {
+                                                                Toast.makeText(requireContext(), "Error de registro", Toast.LENGTH_SHORT).show()
+                                                            }
+                                                        }
+                                                }
                                             } else {
-                                                Toast.makeText(requireContext(), "Error de registro", Toast.LENGTH_SHORT).show()
+                                                // Manejar error de autenticación aquí
+                                                Toast.makeText(requireContext(), "Error de autenticación: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                                             }
                                         }
                                 }
-                            } else {
-                                // Manejar error de autenticación aquí
                             }
-                        }
+
+                            override fun onCancelled(error: DatabaseError) {
+
+                                Toast.makeText(requireContext(), "Error de base de datos", Toast.LENGTH_SHORT).show()
+                            }
+                        })
+                    }
+                } else {
+
+                    Toast.makeText(requireContext(), "Error de autenticación: ${emailTask.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Manejar error de base de datos aquí
-            }
-        })
     }
 
 
