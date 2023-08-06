@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:padding="10dp"
     android:layout_height="match_parent"
-    android:background="@drawable/backgroud_gradiente"
+    android:background="@drawable/gradientegris"
     tools:context=".fragment_registrarse">
 
     <LinearLayout
@@ -143,7 +143,7 @@
 
         <Button
             android:id="@+id/btnRegister"
-            android:layout_width="271dp"
+            android:layout_width="match_parent"
             android:layout_height="53dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/botonredondo"

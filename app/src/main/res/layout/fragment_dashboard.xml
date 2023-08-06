@@ -9,7 +9,7 @@
     tools:context=".ui.dashboard.DashboardFragment">
 <Space
     android:layout_width="match_parent"
-    android:layout_height="500dp">
+    android:layout_height="100dp">
 
 </Space>
     <TextView
@@ -20,20 +20,13 @@
         android:layout_margin="10dp"
         android:text="TOCA PARA ALERTAR"
         android:textAlignment="center"
-        android:textColor="@color/amarillo_electrico"
+        android:textColor="@color/negro"
         android:textSize="40sp"
          />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp">
-        <Button
-            android:id="@+id/btnSwipe"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Botón 1"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:padding="16dp" />
+        <include layout="@layout/linear_button" />
 
     </RelativeLayout>
 

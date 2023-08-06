@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.AppAlertme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Theme.AppAlertme" parent="Theme.MaterialComponents.Light.NoActionBar">
 
         <item name="colorPrimary">@color/rosa_brillante</item>
         <item name="colorPrimaryVariant">#0080FF</item>

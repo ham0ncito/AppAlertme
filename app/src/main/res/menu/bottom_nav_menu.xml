@@ -12,7 +12,7 @@
         android:title="@string/Alertas"/>
 
     <item
-        android:id="@+id/navigation_activity"
+        android:id="@+id/navigation_actividades"
         android:icon="@drawable/ic_notifications_black_24dp"
         android:title="@string/Actividades" />
 
