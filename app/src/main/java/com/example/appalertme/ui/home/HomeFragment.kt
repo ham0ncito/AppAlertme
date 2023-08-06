@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,7 +14,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.appalertme.R
 import com.example.appalertme.Usuario
+import com.example.appalertme.addContacto
 import com.example.appalertme.databinding.FragmentHomeBinding
+import com.example.appalertme.eliminarContacto
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -87,7 +90,16 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         })
 
 
-
+ val aggContacto = view.findViewById<Button>(R.id.btnAgregarContacto)
+        val eliContacto = view.findViewById<Button>(R.id.btnEliminarContacto)
+        aggContacto.setOnClickListener{
+            val intent = Intent(requireContext(), addContacto::class.java)
+            startActivity(intent)
+        }
+        eliContacto.setOnClickListener{
+            val intent = Intent(requireContext(), eliminarContacto::class.java)
+            startActivity(intent)
+        }
         val roundedImageView = view.findViewById<ImageView>(R.id.roundedImageView)
         roundedImageView.setOnClickListener {
             val intent = Intent(requireContext(), Usuario::class.java)

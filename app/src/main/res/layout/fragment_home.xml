@@ -122,13 +122,13 @@
         tools:listitem="@layout/contacinto"
         android:background="@drawable/cajitas"
         android:layout_below="@id/editTextBuscar"
-        android:layout_above="@id/btnAgregar"
+        android:layout_above="@id/btnAgregarContacto"
         android:padding="16dp" />
 
     <!-- Botón "Agregar" debajo del RecyclerView -->
     <Button
         android:layout_marginTop="12dp"
-        android:id="@+id/btnAgregar"
+        android:id="@+id/btnAgregarContacto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/recyclerViewContactos"
