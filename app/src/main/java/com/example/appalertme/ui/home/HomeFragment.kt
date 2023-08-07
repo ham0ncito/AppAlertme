@@ -78,7 +78,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (userSnapshot in snapshot.children) {
-                    val username = userSnapshot.child("receptor").getValue(String::class.java)
+                    val username = userSnapshot.child("remitente").getValue(String::class.java)
                     if (username != null) {
                         usernames.add(username)
                     }
