@@ -83,7 +83,7 @@ class AddContactoActivity : AppCompatActivity() {
     private fun sendContactRequest(username: String, email: String, CorreoUsuario: String) {
         val databaseReference = FirebaseDatabase.getInstance().reference
 
-        val request = Solicitud(CorreoUsuario, username, "pendiente",email)
+        val request = SolicitudContacto(CorreoUsuario, username, "pendiente",email)
 
         val requestId = databaseReference.child("contact_requests").push().key
         if (requestId != null) {

@@ -7,4 +7,3 @@ data class Contact(
     var contactId: String = "",
     var NombreUsuario: String = "",
 )
-data class SolicitudContacto(val nombreUsuario: String = "")

@@ -36,7 +36,7 @@
             android:textSize="24sp" />
 
         <Button
-            android:id="@+id/acceptButton"
+            android:id="@+id/acceptButtonSoli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Aceptar"
@@ -45,7 +45,7 @@
             android:layout_marginTop="8dp" />
 
         <Button
-            android:id="@+id/deleteButton"
+            android:id="@+id/deleteButtonSoli"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Rechazar"

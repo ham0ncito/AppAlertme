@@ -1,6 +1,6 @@
 package com.example.appalertme
 
-data class Solicitud(
+data class SolicitudContacto(
     var remitente: String = "",
     var receptor: String = "",
     var estado: String = "",
