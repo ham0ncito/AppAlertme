@@ -28,15 +28,63 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")
-        val nombre = sharedPref.getString("nombre", "")
-        val apellido = sharedPref.getString("apellido", "")
         val texto = view?.findViewById<TextView>(R.id.textViewTitulo)
-        if (texto != null) {
-            texto.text = "Bievenido\n$nombre\n$apellido"
-        }
+
         if (email != null) {
             solicitudesActivas(email)
         }
+        val databaseReference = FirebaseDatabase.getInstance().reference
+        val query = databaseReference.child("users").orderByChild("correo").equalTo(email)
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (userSnapshot in snapshot.children) {
+                        val nombre = userSnapshot.child("nombre").getValue(String::class.java)
+                        val apellido = userSnapshot.child("apellido").getValue(String::class.java)
+                        val correo = userSnapshot.child("apellido").getValue(String::class.java)
+                        val fechaNacimiento = userSnapshot.child("fechaNacimiento").getValue(String::class.java)
+                   val nombreUsuario = userSnapshot.child("nombreUsuario").getValue(String::class.java)
+                   val telefono = userSnapshot.child("telefono").getValue(String::class.java)
+                        val editor = sharedPref.edit()
+
+                        if (nombre != null && !nombre.isEmpty()) {
+                            editor.putString("nombre", nombre)
+                        }
+
+                        if (apellido != null && !apellido.isEmpty()) {
+                            editor.putString("apellido", apellido)
+                        }
+
+                        if (correo != null && !correo.isEmpty()) {
+                            editor.putString("correo", correo)
+                        }
+
+                        if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
+                            editor.putString("fechaNacimiento", fechaNacimiento)
+                        }
+
+                        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+                            editor.putString("nombreUsuario", nombreUsuario)
+                        }
+
+                        if (telefono != null && !telefono.isEmpty()) {
+                            editor.putString("telefono", telefono)
+                        }
+                        if (texto != null) {
+                            texto.text = "Bievenido\n$nombre\n$apellido"
+                        }
+                        editor.apply()
+                    }
+                } else {
+                    // El correo electrónico no fue encontrado en la base de datos
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar error de base de datos
+            }
+        })
 
         val aggContacto = view?.findViewById<Button>(R.id.btnAgregarContacto)
         val eliContacto = view?.findViewById<Button>(R.id.btnEliminarContacto)

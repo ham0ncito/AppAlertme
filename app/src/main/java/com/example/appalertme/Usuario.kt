@@ -32,8 +32,8 @@ class Usuario : AppCompatActivity() {
         val email = sharedPref.getString("email", "")
         val nombre = sharedPref.getString("nombre", "")
         val apellido = sharedPref.getString("apellido", "")
-        val usuario = sharedPref.getString("usuario", "")
-        val fecha = sharedPref.getString("fecha", "")
+        val usuario = sharedPref.getString("nombreUsuario", "")
+        val fecha = sharedPref.getString("fechaNacimiento", "")
         val telefono = sharedPref.getString("telefono", "")
 
         emailTextView.text = email
