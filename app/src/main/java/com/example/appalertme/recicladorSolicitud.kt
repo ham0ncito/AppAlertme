@@ -29,18 +29,18 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(request: SolicitudContacto) {
             itemView.findViewById<TextView>(R.id.usernameTextContacto).text = request.remitente
+            val remitente = request.remitente
             val acceptButton = itemView.findViewById<Button>(R.id.acceptButtonSoli)
             val rejectButton = itemView.findViewById<Button>(R.id.deleteButtonSoli)
             acceptButton.setOnClickListener {
 
             }
             rejectButton.setOnClickListener {
-                val remitente = FirebaseAuth.getInstance().currentUser?.email
-                val receptor = request.receptor
-
+                Toast.makeText(itemView.context, "$remitente", Toast.LENGTH_SHORT).show()
+                val receptor = request.correo
+                Toast.makeText(itemView.context, "$receptor", Toast.LENGTH_SHORT).show()
                 val databaseReference = FirebaseDatabase.getInstance().reference
-                databaseReference.child("contact_requests").child("$remitente-$receptor").removeValue()
-
+               // databaseReference.child("contact_requests").child("$remitente-$receptor").removeValue()
                 Toast.makeText(itemView.context, "Solicitud rechazada", Toast.LENGTH_SHORT).show()
             }
 

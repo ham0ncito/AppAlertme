@@ -27,7 +27,6 @@ class Usuario : AppCompatActivity() {
         val fechaTextView = findViewById<TextView>(R.id.activityDatosFecha)
         val titulo = findViewById<TextView>(R.id.titleUsuario)
         val nombreUsuarioTextView = findViewById<TextView>(R.id.activityDatosNombreUsuario)
-        val recicladorSolicitud = findViewById<RecyclerView>(R.id.recyclerViewSolicitus)
 
         val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")
@@ -55,9 +54,14 @@ val cerrarSesion = findViewById<Button>(R.id.cerrarSesion)
             val auth = FirebaseAuth.getInstance()
             auth.signOut()
 
-            val delayMillis = 5000L
+            val delayMillis = 1000L
             Handler(Looper.getMainLooper()).postDelayed({
                 val intent = Intent(this@Usuario, Contenedor::class.java)
+                val sharedPref = this@Usuario.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val editor = sharedPref.edit()
+                editor.clear()
+                editor.apply()
+
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()

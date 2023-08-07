@@ -28,7 +28,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         super.onViewCreated(view, savedInstanceState)
         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")
+        val nombre = sharedPref.getString("nombre", "")
+        val apellido = sharedPref.getString("apellido", "")
         val texto = view?.findViewById<TextView>(R.id.textViewTitulo)
+        if (texto != null) {
+            texto.text = "Bievenido\n$nombre\n$apellido"
+        }
         if (email != null) {
             solicitudesActivas(email)
         }
