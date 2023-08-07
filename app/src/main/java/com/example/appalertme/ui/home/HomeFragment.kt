@@ -23,6 +23,8 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -93,7 +95,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         val aggContacto = view?.findViewById<Button>(R.id.btnAgregarContacto)
         val eliContacto = view?.findViewById<Button>(R.id.btnEliminarContacto)
-
+saveTokenToFirestore()
         if (aggContacto != null) {
             aggContacto.setOnClickListener{
                 val intent = Intent(requireContext(), AddContactoActivity::class.java)
@@ -178,6 +180,46 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
     }
+    private fun saveTokenToFirestore() {
+        FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val token = task.result
+                val db = FirebaseFirestore.getInstance()
+                val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+                val email = sharedPref.getString("email", "")
+                val usuarioId = "$email"
+                val usuarioRef = db.collection("tokens").document(usuarioId)
+
+                usuarioRef.get().addOnCompleteListener { userTask ->
+                    if (userTask.isSuccessful) {
+                        val document = userTask.result
+                        if (document != null && document.exists()) {
+                            val existingToken = document.getString("token")
+                            if (existingToken != token) {
+                                usuarioRef.update("token", token)
+                                    .addOnSuccessListener {
+                                    }
+                                    .addOnFailureListener {
+                                    }
+                            }
+                        } else {
+                            val nuevoUsuario = hashMapOf(
+                                "token" to token
+                            )
+                            usuarioRef.set(nuevoUsuario)
+                                .addOnSuccessListener {
+
+                                }
+                                .addOnFailureListener {
+                                }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
 
     private fun solicitudesActivas(userEmail: String) {
         val databaseReference = FirebaseDatabase.getInstance().reference
