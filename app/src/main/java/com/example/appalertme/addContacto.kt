@@ -25,20 +25,15 @@ class AddContactoActivity : AppCompatActivity() {
         setContentView(R.layout.activity_add_contacto)
         val correoUsuario = intent.getStringExtra("email")
         editTextUsername = findViewById(R.id.contactoEditTextUsername)
-        editTextName = findViewById(R.id.contactoEditTextName)
-        editTextPhone = findViewById(R.id.contactoEditTextPhone)
         editTextEmail = findViewById(R.id.contactoEditTextEmail)
         btnSendRequest = findViewById(R.id.btnSendRequest)
-
         btnSendRequest.setOnClickListener {
             val username = editTextUsername.text.toString().trim()
-            val name = editTextName.text.toString()
-            val phone = editTextPhone.text.toString()
             val email = editTextEmail.text.toString()
 
-            if (username.isNotEmpty() && name.isNotEmpty() && phone.isNotEmpty() && email.isNotEmpty()) {
+            if (username.isNotEmpty()  && email.isNotEmpty()) {
                 if (correoUsuario != null) {
-                    checkUserExists(username, name, phone, email, correoUsuario)
+                    checkUserAndEmailExists(username, email,correoUsuario)
                 }
             } else {
                 Toast.makeText(this, "Por favor, complete todos los campos", Toast.LENGTH_SHORT).show()
@@ -46,58 +41,62 @@ class AddContactoActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkUserExists(username: String, email: String, name: String, phone: String, CorreoUsuario: String) {
+    private fun checkUserAndEmailExists(username: String, email: String, CorreoUsuario: String) {
         val databaseReference = FirebaseDatabase.getInstance().reference
-
         val query = databaseReference.child("users")
             .orderByChild("nombreUsuario")
             .equalTo(username)
-
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
-                    // Nombre de usuario encontrado
                     Toast.makeText(this@AddContactoActivity, "Usuario encontrado", Toast.LENGTH_SHORT).show()
+                    var userEmailFound = false
                     for (userSnapshot in snapshot.children) {
                         val userEmail = userSnapshot.child("correo").getValue(String::class.java)
                         if (userEmail == email) {
-                            // Correo electrónico encontrado
-                            Toast.makeText(this@AddContactoActivity, "Correo electrónico encontrado", Toast.LENGTH_SHORT).show()
-                            sendContactRequest(username, name, phone, email, CorreoUsuario)
-                        } else {
-                            // Correo electrónico no encontrado
-                            Toast.makeText(this@AddContactoActivity, "Correo electrónico no encontrado", Toast.LENGTH_SHORT).show()
+
+                            userEmailFound = true
+
                         }
                     }
+
+                    if (userEmailFound) {
+
+                        Toast.makeText(this@AddContactoActivity, "Nombre de usuario y correo electrónico encontrados", Toast.LENGTH_SHORT).show()
+                        sendContactRequest(username, email, CorreoUsuario)
+                    } else {
+
+                        Toast.makeText(this@AddContactoActivity, "Correo electrónico no encontrado para el usuario", Toast.LENGTH_SHORT).show()
+                    }
                 } else {
-                    // Nombre de usuario no encontrado
+
                     Toast.makeText(this@AddContactoActivity, "Usuario no encontrado", Toast.LENGTH_SHORT).show()
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Manejar error de base de datos
+
             }
         })
     }
 
-
-    private fun sendContactRequest(username: String, name: String, phone: String, email: String, CorreoUsuario: String) {
-        val senderUid = FirebaseAuth.getInstance().currentUser?.uid
+    private fun sendContactRequest(username: String, email: String, CorreoUsuario: String) {
         val databaseReference = FirebaseDatabase.getInstance().reference
-        val request = Solicitud(CorreoUsuario, email, "pendiente")
-        val requestId = databaseReference.child("users").child(email).child("contact_requests").push().key
+
+        val request = Solicitud(CorreoUsuario, username, "pendiente",email)
+
+        val requestId = databaseReference.child("contact_requests").push().key
         if (requestId != null) {
-            databaseReference.child("users").child(email).child("contact_requests").child(requestId).setValue(request)
+            databaseReference.child("contact_requests").child(requestId).setValue(request)
                 .addOnSuccessListener {
-                    // Solicitud de contacto enviada exitosamente
-                    Toast.makeText(this, "Solicitud de contacto enviada", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@AddContactoActivity, "Solicitud de contacto enviada", Toast.LENGTH_SHORT).show()
                     finish()
                 }
                 .addOnFailureListener {
-                    // Manejar error al enviar la solicitud de contacto
+                    Toast.makeText(this@AddContactoActivity, "Error al enviar la solicitud de contacto", Toast.LENGTH_SHORT).show()
                 }
+        } else {
+            Toast.makeText(this@AddContactoActivity, "Error al generar la clave de solicitud", Toast.LENGTH_SHORT).show()
         }
     }
-
 }

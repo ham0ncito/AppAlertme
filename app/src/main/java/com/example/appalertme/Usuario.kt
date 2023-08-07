@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 
 class Usuario : AppCompatActivity() {
@@ -26,6 +27,7 @@ class Usuario : AppCompatActivity() {
         val fechaTextView = findViewById<TextView>(R.id.activityDatosFecha)
         val titulo = findViewById<TextView>(R.id.titleUsuario)
         val nombreUsuarioTextView = findViewById<TextView>(R.id.activityDatosNombreUsuario)
+        val recicladorSolicitud = findViewById<RecyclerView>(R.id.recyclerViewSolicitus)
 
         val sharedPref = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")

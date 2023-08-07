@@ -10,7 +10,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/cajitas"
     android:layout_marginTop="80dp"
-    android:padding="20dp"
+    android:padding="40dp"
 android:orientation="vertical">
     <TextView
         android:layout_marginTop="20dp"
@@ -32,25 +32,7 @@ android:orientation="vertical">
         android:padding="20dp"
         android:layout_margin="10dp" />
 
-    <EditText
-        android:id="@+id/contactoEditTextName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Nombre"
-        android:background="@drawable/input"
-        android:padding="20dp"
-        android:layout_margin="10dp" />
 
-    <EditText
-        android:id="@+id/contactoEditTextPhone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Teléfono"
-        android:background="@drawable/input"
-        android:padding="20dp"
-        android:layout_margin="10dp" />
 
     <EditText
         android:id="@+id/contactoEditTextEmail"
