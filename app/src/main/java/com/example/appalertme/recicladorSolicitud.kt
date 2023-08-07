@@ -37,6 +37,7 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
             val query = databaseReference.child("contact_requests")
                 .orderByChild("correo")
                 .equalTo(receptor)
+
             query.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for (childSnapshot in snapshot.children) {
@@ -50,21 +51,37 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
                                 "remitente" to request.remitente,
                                 "correo" to request.correo
                             )
+                            val contactosAlterns = hashMapOf(
+                                "remitente" to request.correo,
+                                "correo" to request.remitente
+                            )
 
                             contactosReference.setValue(contactosData)
                                 .addOnSuccessListener {
-                                    Toast.makeText(holder.itemView.context, "Error $it", Toast.LENGTH_SHORT).show()
-
                                     childSnapshot.ref.removeValue()
                                         .addOnSuccessListener {
-                                            Toast.makeText(holder.itemView.context, "Error $it", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(holder.itemView.context, "Solicitud aceptada", Toast.LENGTH_SHORT).show()
                                         }
                                         .addOnFailureListener {
-                                            Toast.makeText(holder.itemView.context, "Error $it", Toast.LENGTH_SHORT).show()
+                                            Toast.makeText(holder.itemView.context, "Error al eliminar solicitud", Toast.LENGTH_SHORT).show()
                                         }
                                 }
                                 .addOnFailureListener {
-                                    Toast.makeText(holder.itemView.context, "Error $it", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(holder.itemView.context, "Error al agregar contacto", Toast.LENGTH_SHORT).show()
+                                }
+
+                            contactosReference.setValue(contactosAlterns)
+                                .addOnSuccessListener {
+                                    childSnapshot.ref.removeValue()
+                                        .addOnSuccessListener {
+
+                                        }
+                                        .addOnFailureListener {
+
+                                        }
+                                }
+                                .addOnFailureListener {
+
                                 }
                             break
                         }
@@ -73,6 +90,7 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
 
                 override fun onCancelled(error: DatabaseError) {
                     // Manejar error en la consulta
+                    Toast.makeText(holder.itemView.context, "Error en la consulta", Toast.LENGTH_SHORT).show()
                 }
             })
         }

@@ -12,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appalertme.AddContactoActivity
+import com.example.appalertme.Contacto
 import com.example.appalertme.R
+import com.example.appalertme.RecyclerAdapterContactosCompletos
 import com.example.appalertme.SolicitudContacto
 import com.example.appalertme.Usuario
 import com.example.appalertme.eliminarContacto
@@ -32,6 +34,9 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
         if (email != null) {
             solicitudesActivas(email)
+        }
+        if (email != null) {
+            cargarYMostrarContactosAmigos(email)
         }
         val databaseReference = FirebaseDatabase.getInstance().reference
         val query = databaseReference.child("users").orderByChild("correo").equalTo(email)
@@ -111,6 +116,59 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             }
         }
     }
+    private fun cargarYMostrarContactosAmigos(correoUsuario: String) {
+        val recyclerViewContactos = view?.findViewById<RecyclerView>(R.id.recyclerViewContactos)
+        val databaseReference = FirebaseDatabase.getInstance().reference
+        // Primero, consulta los contactos en la base de datos 'contactos' donde el remitente es el correo del usuario
+        val contactosReference = databaseReference.child("contactos")
+        val query = contactosReference.orderByChild("remitente").equalTo(correoUsuario)
+
+        query.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val contactosAmigosList = mutableListOf<Contacto>()
+                for (contactoSnapshot in snapshot.children) {
+                    val contacto = contactoSnapshot.getValue(Contacto::class.java)
+                    if (contacto != null) {
+                        contactosAmigosList.add(contacto)
+                    }
+                }
+
+                val usersReference = databaseReference.child("users")
+                val contactosCompletosList = mutableListOf<Contacto>()
+                for (contactoAmigo in contactosAmigosList) {
+                    val correoContacto = contactoAmigo.email// Utiliza el campo de correo del contacto
+
+                    usersReference.child(correoContacto).addListenerForSingleValueEvent(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val nombre = snapshot.child("nombre").getValue(String::class.java)
+                            val apellido = snapshot.child("apellido").getValue(String::class.java)
+                            val nombreUsuario = snapshot.child("nombreUsuario").getValue(String::class.java)
+                            val telefono = snapshot.child("telefono").getValue(String::class.java)
+                            val contactoCompleto = Contacto(
+                                "$nombre $apellido",
+                                "$telefono",
+                                "$correoContacto",
+                                "$nombreUsuario"
+                            )
+                            contactosCompletosList.add(contactoCompleto)
+                            val adapter = RecyclerAdapterContactosCompletos(contactosCompletosList)
+                            recyclerViewContactos?.layoutManager = LinearLayoutManager(requireContext())
+                            recyclerViewContactos?.adapter = adapter
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Manejar error
+                        }
+                    })
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                // Manejar error
+            }
+        })
+    }
+
 
     private fun displayContactRequests(usernames: List<String>) {
         val recyclerView = requireView().findViewById<RecyclerView>(R.id.recyclerViewSolicitus)
