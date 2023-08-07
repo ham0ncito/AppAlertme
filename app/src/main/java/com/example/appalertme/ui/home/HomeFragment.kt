@@ -42,7 +42,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
                     for (userSnapshot in snapshot.children) {
                         val nombre = userSnapshot.child("nombre").getValue(String::class.java)
                         val apellido = userSnapshot.child("apellido").getValue(String::class.java)
-                        val correo = userSnapshot.child("apellido").getValue(String::class.java)
+                        val correo = userSnapshot.child("correo").getValue(String::class.java)
                         val fechaNacimiento = userSnapshot.child("fechaNacimiento").getValue(String::class.java)
                    val nombreUsuario = userSnapshot.child("nombreUsuario").getValue(String::class.java)
                    val telefono = userSnapshot.child("telefono").getValue(String::class.java)

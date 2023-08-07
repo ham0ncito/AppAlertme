@@ -4,5 +4,6 @@ data class SolicitudContacto(
     var remitente: String = "",
     var receptor: String = "",
     var estado: String = "",
-    val correo: String=""
+    val correo: String="",
+    var id: String = ""
 )
