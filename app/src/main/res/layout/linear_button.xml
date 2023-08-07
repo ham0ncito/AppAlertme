@@ -13,6 +13,7 @@
 
         <Button
             android:layout_width="0dp"
+            android:id="@+id/botonalert1"
             android:layout_height="match_parent"
             android:background="@drawable/botonessombras"
             android:layout_weight="1"
@@ -25,6 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Botón 2"
+            android:id="@+id/botonalert2"
             android:background="@drawable/botonessombras"
             android:layout_margin="3dp"
             android:textSize="18sp" />
@@ -41,6 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Botón 3"
+            android:id="@+id/botonalert3"
             android:background="@drawable/botonessombras"
             android:textSize="18sp" android:layout_margin="3dp"/>
 
@@ -49,6 +52,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Botón 4"
+            android:id="@+id/botonalert4"
             android:background="@drawable/botonessombras"
             android:layout_margin="3dp"
             android:textSize="18sp" />
