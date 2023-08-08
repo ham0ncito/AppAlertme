@@ -1,9 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".eliminarContacto">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/gradientesblancos"
+        tools:context=".ui.eliminarcontactos.EliminarContactosFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <RelativeLayout
+                android:id="@+id/relativeContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/gradienteanaranjao"
+                android:padding="60dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/textViewTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:text="Eliminar Contactos"
+                    android:textSize="30sp"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <!-- Botón de regresar -->
+
+            </RelativeLayout>
+
+            <!-- RecyclerView para mostrar la lista de contactos a eliminar -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewEliminarContactos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/cajitas"
+                android:padding="16dp"
+                tools:listitem="@layout/contactoeliminar" />
+
+
+
+        </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

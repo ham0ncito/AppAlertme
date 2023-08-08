@@ -157,6 +157,7 @@ saveTokenToFirestore()
         if (eliContacto != null) {
             eliContacto.setOnClickListener{
                 val intent = Intent(requireContext(), eliminarContacto::class.java)
+                intent.putExtra("email", email)
                 startActivity(intent)
             }
         }

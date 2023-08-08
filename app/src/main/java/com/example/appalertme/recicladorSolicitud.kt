@@ -32,6 +32,7 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
         val rejectButton = holder.itemView.findViewById<Button>(R.id.deleteButtonSoli)
         val receptor = email
         val remitente = request.remitente
+
         acceptButton.setOnClickListener {
             val databaseReference = FirebaseDatabase.getInstance().reference
             val query = databaseReference.child("contact_requests")
@@ -45,6 +46,7 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
                         if (request != null && request.remitente == remitente) {
                             val requestId = request.id
                             val contactosReference = databaseReference.child("contactos").push()
+                            val contactosReference2 = databaseReference.child("contactos").push()
                             val contactosId = contactosReference.key
 
                             val contactosData = hashMapOf(
@@ -55,6 +57,8 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
                                 "remitente" to request.correo,
                                 "correo" to request.remitente
                             )
+
+
 
                             contactosReference.setValue(contactosData)
                                 .addOnSuccessListener {
@@ -70,7 +74,7 @@ class recicladorSolicitud(private val contactRequests: List<SolicitudContacto>) 
                                     Toast.makeText(holder.itemView.context, "Error al agregar contacto", Toast.LENGTH_SHORT).show()
                                 }
 
-                            contactosReference.setValue(contactosAlterns)
+                            contactosReference2.setValue(contactosAlterns)
                                 .addOnSuccessListener {
                                     childSnapshot.ref.removeValue()
                                         .addOnSuccessListener {
