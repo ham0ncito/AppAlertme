@@ -1,10 +1,16 @@
 package com.example.appalertme.ui.home
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.nfc.Tag
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -22,9 +28,11 @@ import com.example.appalertme.recicladorSolicitud
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.messaging.FirebaseMessaging
+import kotlin.math.log
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
@@ -33,6 +41,48 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         val sharedPref = requireActivity().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
         val email = sharedPref.getString("email", "")
         val texto = view?.findViewById<TextView>(R.id.textViewTitulo)
+        val searchBox = view.findViewById<EditText>(R.id.editTextBuscar)
+
+        searchBox.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+            override fun afterTextChanged(p0: Editable) {
+                Log.d("Searchbox","SearchBox : " + p0.toString())
+                val recyclerViewContactos = requireView().findViewById<RecyclerView>(R.id.recyclerViewContactos)
+                val databaseReference = FirebaseDatabase.getInstance().reference
+                val db = FirebaseFirestore.getInstance()
+
+                val contactosCompletosList = mutableListOf<Contacto>()
+                val usersReference = databaseReference.child("users")
+                usersReference.orderByChild("nombre").equalTo(p0.toString()).addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        for (userSnapshot in snapshot.children){
+                            Log.d("Usuario","Nombrein: "+p0.toString())
+                            val nombre = userSnapshot.child("nombre").getValue(String::class.java)
+                            Log.d("Nombre","Nombre: "+ nombre)
+                            val correo = userSnapshot.child("correo").getValue(String::class.java)
+                            val apellido = userSnapshot.child("apellido").getValue(String::class.java)
+                            val nombreUsuario = userSnapshot.child("nombreUsuario").getValue(String::class.java)
+                            val telefono = userSnapshot.child("telefono").getValue(String::class.java)
+                            val contactoCompleto = Contacto("$nombre $apellido", "$telefono", "$correo", "$nombreUsuario")
+                            contactosCompletosList.add(contactoCompleto)
+
+                            // Check if all inner queries are completed
+
+                            val adapter = RecyclerAdapterContactosCompletos(contactosCompletosList)
+                            recyclerViewContactos.layoutManager = LinearLayoutManager(requireContext())
+                            recyclerViewContactos.adapter = adapter
+
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        // Handle error
+                    }
+                })
+            }
+        })
 
         if (email != null) {
             solicitudesActivas(email)
@@ -117,59 +167,70 @@ saveTokenToFirestore()
                 startActivity(intent)
             }
         }
+
+
     }
+    @SuppressLint("RestrictedApi")
     private fun cargarYMostrarContactosAmigos(correoUsuario: String) {
-        val recyclerViewContactos = view?.findViewById<RecyclerView>(R.id.recyclerViewContactos)
+        val recyclerViewContactos = requireView().findViewById<RecyclerView>(R.id.recyclerViewContactos)
         val databaseReference = FirebaseDatabase.getInstance().reference
-        // Primero, consulta los contactos en la base de datos 'contactos' donde el remitente es el correo del usuario
+        val db = FirebaseFirestore.getInstance()
         val contactosReference = databaseReference.child("contactos")
         val query = contactosReference.orderByChild("remitente").equalTo(correoUsuario)
 
+        val usersReference = databaseReference.child("users")
+        Log.d("MyApp", "Correo Usuario : ${correoUsuario}")
         query.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val contactosAmigosList = mutableListOf<Contacto>()
+                val contactosAmigosList = mutableListOf<String>()
                 for (contactoSnapshot in snapshot.children) {
-                    val contacto = contactoSnapshot.getValue(Contacto::class.java)
-                    if (contacto != null) {
-                        contactosAmigosList.add(contacto)
-                    }
+                    var contacto = contactoSnapshot.child("correo").getValue(String::class.java)
+                    contacto?.let { contactosAmigosList.add(it) }
+                    Log.d("Contacto","EMail: "+ contacto)
                 }
 
-                val usersReference = databaseReference.child("users")
-                val contactosCompletosList = mutableListOf<Contacto>()
-                for (contactoAmigo in contactosAmigosList) {
-                    val correoContacto = contactoAmigo.email// Utiliza el campo de correo del contacto
 
-                    usersReference.child(correoContacto).addListenerForSingleValueEvent(object : ValueEventListener {
+                val contactosCompletosList = mutableListOf<Contacto>() // Counter for completed inner queries
+
+                for (contactoAmigo in contactosAmigosList) {
+                    var correoContacto = contactoAmigo
+                    Log.d("CorreoContacto","Correo: "+correoContacto)
+
+                    usersReference.orderByChild("correo").equalTo(correoContacto).addListenerForSingleValueEvent(object : ValueEventListener {
                         override fun onDataChange(snapshot: DataSnapshot) {
-                            val nombre = snapshot.child("nombre").getValue(String::class.java)
-                            val apellido = snapshot.child("apellido").getValue(String::class.java)
-                            val nombreUsuario = snapshot.child("nombreUsuario").getValue(String::class.java)
-                            val telefono = snapshot.child("telefono").getValue(String::class.java)
-                            val contactoCompleto = Contacto(
-                                "$nombre $apellido",
-                                "$telefono",
-                                "$correoContacto",
-                                "$nombreUsuario"
-                            )
-                            contactosCompletosList.add(contactoCompleto)
-                            val adapter = RecyclerAdapterContactosCompletos(contactosCompletosList)
-                            recyclerViewContactos?.layoutManager = LinearLayoutManager(requireContext())
-                            recyclerViewContactos?.adapter = adapter
+                            for (userSnapshot in snapshot.children){
+                                Log.d("CorreoContacto","Correoin: "+correoContacto)
+                                val nombre = userSnapshot.child("nombre").getValue(String::class.java)
+                                Log.d("Nombre","Nombre: "+ nombre)
+                                val apellido = userSnapshot.child("apellido").getValue(String::class.java)
+                                val nombreUsuario = userSnapshot.child("nombreUsuario").getValue(String::class.java)
+                                val telefono = userSnapshot.child("telefono").getValue(String::class.java)
+                                val contactoCompleto = Contacto("$nombre $apellido", "$telefono", "$correoContacto", "$nombreUsuario")
+                                contactosCompletosList.add(contactoCompleto)
+
+                                // Check if all inner queries are completed
+
+                                val adapter = RecyclerAdapterContactosCompletos(contactosCompletosList)
+                                recyclerViewContactos.layoutManager = LinearLayoutManager(requireContext())
+                                recyclerViewContactos.adapter = adapter
+
+                            }
+
                         }
 
                         override fun onCancelled(error: DatabaseError) {
-                            // Manejar error
+                            // Handle error
                         }
                     })
                 }
             }
 
             override fun onCancelled(error: DatabaseError) {
-                // Manejar error
+                // Handle error
             }
         })
     }
+
 
 
     private fun displayContactRequests(usernames: List<String>) {

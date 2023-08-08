@@ -46,68 +46,17 @@
 
     </RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/atajos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/cajitas"
-        android:padding="12dp"
-        android:layout_below="@id/relativeContainer"
-        android:orientation="vertical">
 
-        <!-- TextView "Atajos" -->
-        <TextView
-            android:id="@+id/textViewAtajos"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Atajos"
-            android:textSize="28sp"
-            android:textColor="@color/azul_electrico"
-            android:textStyle="bold"
-            android:layout_gravity="center"
-            android:padding="16dp" />
-
-        <!-- LinearLayout para los botones en horizontal -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <!-- Primer botón -->
-            <Button
-                android:id="@+id/btnBoton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="TODO BIEN"
-                android:background="@drawable/botonredondo"
-                android:padding="16dp" />
-
-            <!-- Espacio entre los botones -->
-            <Space
-                android:layout_width="16dp"
-                android:layout_height="1dp" />
-
-            <!-- Segundo botón -->
-            <Button
-                android:id="@+id/btnBoton2"
-                android:layout_width="105dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/botonredondo"
-                android:padding="16dp"
-                android:text="ALERTA" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     <EditText
         android:layout_margin="10dp"
         android:id="@+id/editTextBuscar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/atajos"
+        android:layout_below="@id/relativeContainer"
         android:hint="Buscar..."
+        android:inputType="textAutoComplete"
+        android:drawableStart="@android:drawable/ic_menu_search"
         android:textColor="@color/black"
         android:textColorHint="@color/black"
         android:elevation="8dp"
